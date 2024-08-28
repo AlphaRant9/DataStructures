@@ -11,7 +11,7 @@ def getInput():
     values = []
     for i in range(numberOfValues):
         # MODIFY below line to call your getValidNumber function
-        values.append(eval(input("Enter the next number: ")))
+        values.append(getValidNumber("Enter the next number: "))
     return label, values
 
 def getValidInt(promptStr):
@@ -23,13 +23,18 @@ def getValidInt(promptStr):
             myInt = int(input(promptStr))   
             return myInt  # only return if int conversion is successful
         except:
-            print("Invalid integer entered! Please try again use only digits (e.g., 123)")           
+            print("Invalid integer entered! Please try again use only digits (e.g., 123)")
 
 def getValidNumber(promptStr):
     """Repeatedly prompts the user to enter a valid number until one is
        entered correctly, then it's value is returned.
     """
-    pass  # REPLACE pass statement with your code for getValidNumber function
+    while True:   # repeat "forever" or until return valid myInt from function
+        try: # try to do int conversion, but if it fails do except code
+            myFloat = float(input(promptStr))
+            return myFloat  # only return if int conversion is successful
+        except:
+            print("Invalid number entered! Please try again use only digits and at most one period (e.g., 123, 2.2)")
 
 def displayResults(label, total):
     """ Display sum of values. """
