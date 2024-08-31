@@ -1,41 +1,49 @@
 import math
 from random import randint
 
+NAME = ''
+GRADE = 0
+
 def main():
+    """Main function of the program, this is how we call all the other functions"""
+    global NAME
+    global GRADE
     print("Welcome to the Math Tutor\n")
-    name = input("Enter your name: ")
-    grade = getValidInt("Enter your grade (1, 2, or 3): ",
+    NAME = input("Enter your name: ")
+    GRADE = getValidInt("Enter your grade (1, 2, or 3): ",
                         "Enter a valid grade (1, 2, or 3).",
                         1, 3)
-    print(f'\nDirections:  Please answer the following 5 problems {name}.\n')
-    correct = promptProblems(name, grade)
+    print(f'\nDirections:  Please answer the following 5 problems {NAME}.\n')
+    correct = promptProblems()
     print(f'\n{"="*16} Summary {"="*16}')
-    print(f'Bye {name}! You answered {correct} out of 5 correct.')
+    print(f'Bye {NAME}! You answered {correct} out of 5 correct.')
 
-def getValidInt(prompt, error = "Enter a valid integer", minValue = -math.inf, maxValue = math.inf):
+def getValidInt(prompt, error = "Enter a valid integer.", minValue = -math.inf, maxValue = math.inf):
     """ Repeatedly prompts the user for a valid integer
         and returns the valid integer when one is entered.
     """
     while True:
         try:  # tries to convert input string to an int and ensure it is within the set bounds
               # but if it fails do "except" code; otherwise break out of the loop
-            grade = int(input(prompt))
-            if minValue <= grade <= maxValue: # only gets here if the conversion to an int was successful
-                return grade
+            number = int(input(prompt))
+            if minValue <= number <= maxValue: # only gets here if the conversion to an int was successful
+                return number
             else:
-                return ValueError(error)
+                int('out of bounds')
 
         except:
             print(error)
 
 
-def promptProblems(name, grade):
+def promptProblems():
     """Prompts the user with 5 math problems, then returns the number of problems the user got correct"""
+    global NAME
+    global GRADE
     correct = 0
-    if grade == 1:
+    if GRADE == 1: # Sets the minimum and maximum for the possible numbers for the problems
         min = 0
         max = 9
-    elif grade == 2:
+    elif GRADE == 2:
         min = 10
         max = 99
     else:
@@ -49,10 +57,10 @@ def promptProblems(name, grade):
         print(f'            ____')
         answer = value1 + value2
         if answer == getValidInt("Answer: "):
-            print(f'\nGreat {name}, your answer is correct!\n')
+            print(f'\nGreat {NAME}, your answer is correct!\n')
             correct += 1
         else:
-            print(f'\nSorry {name}, your answer is incorrect. The correct answer is {answer}')
+            print(f'\nSorry {NAME}, your answer is incorrect. The correct answer is {answer}')
     return correct
 
 main()
