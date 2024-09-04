@@ -19,7 +19,7 @@ def main():
     print(f'Bye {NAME}! You answered {correct} out of 5 correct.')
 
 def getValidInt(prompt, error = "Enter a valid integer.", minValue = -math.inf, maxValue = math.inf):
-    """ Repeatedly prompts the user for a valid integer
+    """ Repeatedly prompts the user for a valid integer within bounds
         and returns the valid integer when one is entered.
     """
     while True:
@@ -29,7 +29,8 @@ def getValidInt(prompt, error = "Enter a valid integer.", minValue = -math.inf, 
             if minValue <= number <= maxValue: # only gets here if the conversion to an int was successful
                 return number
             else:
-                int('out of bounds')
+                print(error)
+                pass
 
         except:
             print(error)

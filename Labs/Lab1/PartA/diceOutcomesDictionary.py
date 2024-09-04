@@ -4,8 +4,6 @@ Description:  Rolls two dice 1,000 times to determine the outcome(s) with
 the highest percentage.
 """
 from random import randint
-from num2words import num2words
-from word2number import w2n
 
 # Global Constants
 DIE_SIDES = 6
@@ -28,13 +26,13 @@ def welcomeAndInputRolls():
 
 def calculateFrequentRolls(numberOfRolls):
     """Rolls the dice the correct number of times, tallies the outcomes, and
-       returns a list of outcomes with highest counts and highest count."""
+       returns an int of the highest count and returns a string of most frequent outcomes."""
 
     # initialize outcomeCounts to all 0s.  The index corresponds to the outcome
     # NOTE:  index positions 0 and 1 are not possible
     outcomeCounts = {}
     for count in range(DIE_SIDES*2-1):
-        outcomeCounts[num2words(count+2)] = 0
+        outcomeCounts[count+2] = 0
 
     rollAndTallyOutcomes(outcomeCounts, numberOfRolls)
 
@@ -57,15 +55,15 @@ def rollAndTallyOutcomes(outcomeCounts, numberOfRolls):
         die1 = randint(1, DIE_SIDES)
         die2 = randint(1, DIE_SIDES)
         outcome = die1 + die2
-        outcomeCounts[num2words(outcome)] += 1
+        outcomeCounts[outcome] += 1
 
 
 def findOutcomes(outcomeCounts, highestCount):
-    """Returns a list of outcomes with the highest count."""
+    """Returns a string of outcomes with the highest count."""
     highestNumbers = []
     mostFreqNumStr = ''
     for i in range(len(outcomeCounts)):
-        if outcomeCounts[num2words(i+2)] == highestCount:
+        if outcomeCounts[i+2] == highestCount:
             highestNumbers.append(i+2)
 
     if len(highestNumbers) == 1:
