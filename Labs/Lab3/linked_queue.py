@@ -11,16 +11,24 @@ class LinkedQueue(object):
         return self._size == 0
 
     def enqueue(self, item):
-        # ADD CODE HERE
-        pass
+        temp = Node(item)
+        if self._size == 0:
+            self._front = temp
+        else:
+            self._rear.next = temp
+        self._rear = temp
+        self._size += 1
 
     def dequeue(self):
-        # ADD CODE HERE
-        pass
+        if self._size == 0:
+            raise AttributeError('Queue is empty')
+        temp = self._front
+        self._front = self._front.next
+        self._size -= 1
+        return temp.getData()
 
     def peek(self):
-        # ADD CODE HERE
-        pass
+        return self._front.data
 
     def size(self):
         return self._size
@@ -34,4 +42,4 @@ class LinkedQueue(object):
         resultStr = "(front) " + resultStr + "(rear)"
         return resultStr
     
-        
+

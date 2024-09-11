@@ -7,16 +7,13 @@ class QueueAlt:
         return self.items == []
 
     def enqueue(self, item):
-        # ADD CODE HERE
-        pass
+        self.items.append(item)
 
     def dequeue(self):
-        # ADD CODE HERE
-        pass
+        self.items.pop(0)
     
     def peek(self):
-        # ADD CODE HERE
-        pass
+        return self.items[0]
 
     def size(self):
         return len(self.items)
