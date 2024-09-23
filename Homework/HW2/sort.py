@@ -21,7 +21,6 @@ def compareJumble(sortedDict, regularJumble, sortedJumble):
             tempResult = sortedDict.get(str(sortedJumble[jumbleIndex]).lower())
             result += f'could be unscrabbled to {tempResult}\n'
 
-
     return result
 
 def sortJumble(jumbleFile = "jumble.txt"):
@@ -59,10 +58,13 @@ def sortJumble(jumbleFile = "jumble.txt"):
 
 def sortDict(dictFile = "dictionary.txt"):
     """Sorts every character alphabetically by line in a file and writes to a new file with the sorted list."""
-    original = open(dictFile, "r")
+    if os.path.isfile(dictFile):
+        dict = open(dictFile, "r")
+    else:
+        raise FileNotFoundError("Dictionary file not found")
     sortedDict = {}
 
-    for line in original.readlines():
+    for line in dict.readlines():
         temp = []
         tempStr = ""
         tempStrSorted = ""
@@ -80,6 +82,7 @@ def sortDict(dictFile = "dictionary.txt"):
             sortedDict[tempStrSorted] = [tempStr]
         else:
             sortedDict[tempStrSorted].append(tempStr)
+
     return sortedDict
 
 main()
