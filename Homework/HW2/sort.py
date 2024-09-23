@@ -20,7 +20,7 @@ def sortJumble(jumbleFile = "jumble.txt"):
         temp = []
         tempStr = ""
         for char in line:
-            if char is not "\n":
+            if char != "\n":
                 temp.append(char)
 
         temp.sort()
@@ -29,6 +29,7 @@ def sortJumble(jumbleFile = "jumble.txt"):
             tempStr += char
 
         sortedJumble.append(tempStr)
+
 
 
 
@@ -42,7 +43,7 @@ def sortDict(dictFile = "dictionary.txt"):
         tempStr = ""
         tempStrSorted = ""
         for char in line:
-            if char is not "\n":
+            if char != "\n":
                 temp.append(char)
 
         for char in temp:
