@@ -1,8 +1,11 @@
 import os
 
+DICT_FILE = "dictionary.txt"
+JUMBLE_FILE = "jumble.txt"
+
 def main():
-    sortedDict = sortDict()
-    regularJumble, sortedJumble = sortJumble()
+    sortedDict = sortDict(DICT_FILE)
+    regularJumble, sortedJumble = sortJumble(JUMBLE_FILE)
     resultStr = compareJumble(sortedDict, regularJumble, sortedJumble)
     print(resultStr)
 
