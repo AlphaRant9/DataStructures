@@ -21,7 +21,6 @@ def compareJumble(sortedDict, regularJumble, sortedJumble):
             tempResult = sortedDict.get(str(sortedJumble[jumbleIndex]).lower())
             result += f'could be unscrabbled to {tempResult}\n'
 
-
     return result
 
 def sortJumble(jumbleFile = "jumble.txt"):
@@ -80,6 +79,7 @@ def sortDict(dictFile = "dictionary.txt"):
             sortedDict[tempStrSorted] = [tempStr]
         else:
             sortedDict[tempStrSorted].append(tempStr)
+
     return sortedDict
 
 main()
