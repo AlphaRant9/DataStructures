@@ -23,17 +23,22 @@ class BinHeap:
         # print(self.heapList,i)
                         
     def percUpRec(self, i):
-        # ADD CODE HERE
-        pass
+        """Percolates up the heap using recursion"""
+        if i // 2 > 0:
+            if self.heapList[i] < self.heapList[i // 2]:
+                tmp = self.heapList[i // 2]
+                self.heapList[i // 2] = self.heapList[i]
+                self.heapList[i] = tmp
+            self.percUpRec(i // 2)
             
-##    def percUp(self,i):
-##        while i // 2 > 0:
-##            if self.heapList[i] < self.heapList[i//2]:
-##               tmp = self.heapList[i // 2]
-##               self.heapList[i // 2] = self.heapList[i]
-##               self.heapList[i] = tmp
-##            i = i // 2
-##
+    # def percUp(self,i):
+    #     while i // 2 > 0:
+    #         if self.heapList[i] < self.heapList[i//2]:
+    #             tmp = self.heapList[i // 2]
+    #             self.heapList[i // 2] = self.heapList[i]
+    #             self.heapList[i] = tmp
+    #         i = i // 2
+
  
     def insert(self,k):
         self.heapList.append(k)
@@ -41,8 +46,13 @@ class BinHeap:
         self.percUpRec(self.currentSize)
 
     def percDownRec(self,i):
-        # ADD CODE HERE
-        pass
+        if i * 2 < self.currentSize:
+            mc = self.minChild(i)
+            if self.heapList[i] > self.heapList[mc]:
+                tmp = self.heapList[i]
+                self.heapList[i] = self.heapList[mc]
+                self.heapList[mc] = tmp
+            self.percDownRec(i*2)
         
 ##    def percDown(self,i):
 ##        while (i * 2) <= self.currentSize:

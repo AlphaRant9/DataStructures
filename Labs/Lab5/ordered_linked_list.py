@@ -28,12 +28,21 @@ class OrderedList(object):
             """ Recursive helper function that moves down the linked list.
                 It has no parameters, but uses self._current, self._previous, and
                 self._currentIndex."""
-            # ADD CODE HERE
-            pass
+            if self._current is None:
+                return False
+            elif self._current.getData() == targetItem:
+                return True
+            elif self._current.getData() > targetItem:
+                return False
+
+            self._currentIndex += 1
+            self._previous = self._current
+            self._current = self._current.getNext()
+            return searchHelper()
             
 
         # START OF SEARCH - DO NOT MODIFY BELOW CODE
-        if self._current != None and self._current.getData() == targetItem:
+        if self._current is not None and self._current.getData() == targetItem:
             return True
         
         self._previous = None
