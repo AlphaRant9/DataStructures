@@ -32,13 +32,17 @@ class CursorBasedList(object):
     def hasPrevious(self):
         """ Returns True if the current item has a previous item.
             Precondition:  the list is not empty."""
-        pass
+        if self.isEmpty():
+            raise AttributeError("Empty list has no previous item")
+        return self._current.getPrevious() != self._header
     
     def first(self):
         """Moves the cursor to the first item
         if there is one.
         Precondition:  the list is not empty."""
-        pass
+        if self.isEmpty():
+            raise AttributeError("Empty list has no first item")
+        self._current = self._header.getNext()
         
     def last(self):
         """Moves the cursor to the last item
@@ -54,47 +58,94 @@ class CursorBasedList(object):
     def previous(self):
         """Precondition: hasPrevious returns True.
         Postcondition: The current item is has moved to the left one iten"""
-        pass
+        if self._current.getPrevious() is self._header:
+            raise AttributeError("Current item has no previous item")
+        temp = self._current.getPrevious()
+        self._current.getNext().setPrevious(self._current.getPrevious())
+        self._current.getPrevious().setPrevious(self._current)
+        self._current.getNext().getPrevious().setNext(self._current.getNext())
+        self._current.setPrevious(temp.getPrevious())
+        self._current.getPrevious().setNext(self._current)
+
 
     def insertAfter(self, item):
         """Inserts item after the current item, or
         as the only item if the list is empty.  The new item is the
         current item."""
-        pass
+        if self.isEmpty():
+            temp = Node2Way(item)
+            temp.setPrevious(self._header)
+            temp.setNext(self._trailer)
+            self._header.setNext(temp)
+            self._trailer.setPrevious(temp)
+            self._current = self._header.getNext()
+        else:
+            temp = Node2Way(item)
+            temp.setNext(self._current.getNext())
+            temp.setPrevious(self._current)
+            self._current.getNext().setPrevious(temp)
+            self._current.setNext(temp)
+            self._current = self._current.getNext()
+        self._size += 1
+
 
     def insertBefore(self, item):
         """Inserts item before the current item, or
         as the only item if the list is empty.  The new item is the
         current item."""
-        pass
+        if self.isEmpty():
+            temp = Node2Way(item)
+            temp.setPrevious(self._header)
+            temp.setNext(self._trailer)
+            self._header.setNext(temp)
+            self._trailer.setPrevious(temp)
+            self._current = self._header.getNext()
+        else:
+            temp = Node2Way(item)
+            temp.setPrevious(self._current.getPrevious())
+            temp.setNext(self._current)
+            self._current.getPrevious().setNext(temp)
+            self._current.setPrevious(temp)
+            self._current = self._current.getPrevious()
+        self._size += 1
 
     def getCurrent(self):
         """ Returns the current item without removing it or changing the
         current position.
         Precondition:  the list is not empty"""
-        pass
+        if self.isEmpty():
+            raise AttributeError("Empty list has no current item")
+        return self._current.getData()
 
     def remove(self):
         """Removes and returns the current item. Making the next item
         the current item if one exists; otherwise the tail item in the
         list is the current item.
         Precondition: the list is not empty."""
-        pass
+        if self.isEmpty():
+            raise AttributeError("Empty list has no previous item")
+        temp = self._current
+        self._current.getPrevious().setNext(self._current.getNext())
+        self._current.getNext().setPrevious(self._current.getPrevious())
+        self._current = self._current.getNext()
+        self._size -= 1
+        return temp.getData()
 
     def replace(self, newItemValue):
         """Replaces the current item by the newItemValue.
         Precondition: the list is not empty."""
-        pass
+        if self.isEmpty():
+            raise AttributeError("Empty list has no previous item")
+        self._current.setData(newItemValue)
 
     def isEmpty(self):
-        pass
+        return self._size == 0
 
     def __len__(self):
         """ Returns the number of items in the list (excluding the header and
             trailer nodes).
         """
-        # replace below
-        return 0
+        return self._size
 
     def __str__(self):
         """Includes items from first through last. Remember that the
