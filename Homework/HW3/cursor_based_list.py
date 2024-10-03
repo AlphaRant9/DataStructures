@@ -48,23 +48,32 @@ class CursorBasedList(object):
         """Moves the cursor to the last item
         if there is one.
         Precondition:  the list is not empty."""
-        pass
+        if self.isEmpty():
+            raise AttributeError("Empty list has no last item")
+        self._current = self._trailer.getPrevious()
 
     def next(self):
         """Precondition: hasNext returns True.
         Postcondition: The current item is has moved to the right one item"""
-        pass
+        if self._current.getNext() is self._trailer:
+            raise AttributeError("Current item has no next item")
+        temp = self._current
+        self._current.getPrevious().setNext(self._current.getNext())
+        temp.getNext().setPrevious(self._current.getPrevious())
+        self._current.setPrevious(temp.getNext())
+        self._current.setNext(temp.getNext().getNext())
+        self._current.getNext().setPrevious(self._current)
 
     def previous(self):
         """Precondition: hasPrevious returns True.
         Postcondition: The current item is has moved to the left one iten"""
         if self._current.getPrevious() is self._header:
             raise AttributeError("Current item has no previous item")
-        temp = self._current.getPrevious()
+        temp = self._current
         self._current.getNext().setPrevious(self._current.getPrevious())
-        self._current.getPrevious().setPrevious(self._current)
-        self._current.getNext().getPrevious().setNext(self._current.getNext())
-        self._current.setPrevious(temp.getPrevious())
+        temp.getPrevious().setNext(self._current.getNext())
+        self._current.setNext(temp.getPrevious())
+        self._current.setPrevious(temp.getPrevious().getPrevious())
         self._current.getPrevious().setNext(self._current)
 
 
@@ -155,6 +164,8 @@ class CursorBasedList(object):
         temp = self._header.getNext()
         while temp != self._trailer: # stop when temp gets to trailer node
             resultStr += str(temp.getData()) + " "
+            # testing purposes
+            print(f'current node - Data: {temp.getData()}; Previous: {temp.getPrevious().getData()}; Next: {temp.getNext().getData()}')
             temp = temp.getNext()
         # replace below
         return resultStr
