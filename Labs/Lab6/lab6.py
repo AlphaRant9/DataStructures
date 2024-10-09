@@ -3,16 +3,22 @@
 # PART A
 def factorial(n):
     """ Recursive factorial function. """
-    pass
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n-1)
 
 def C(n,k):
     """ Calculates binomial coefficient from formula (2). """
-    pass
+    return factorial(n)//(factorial(k)*factorial(n-k))
 
 # PART B
 def DC(n,k):
     """ Divide-and-Conquer recursive binomial coefficient (formula (3)). """
-    pass
+    if k == 0 or k == n:
+        return 1
+    else:
+        return DC(n-1,k-1)+DC(n-1,k)
 
 # PART C
 def DP(n, k):
@@ -27,7 +33,7 @@ def DP(n, k):
 
         # Inner for-loop to calculate the middle portion of the next row
         for c in range (1,row):
-            pass    # COMPLETE THIS LINE OF CODE
+            nextRow.append(pascalsTriangle[row-1][c-1] + pascalsTriangle[row-1][c])
 
         nextRow.append(1)   # 1 along diagonal
 
@@ -35,7 +41,7 @@ def DP(n, k):
         pascalsTriangle.append(nextRow)
         
     # COMPLETE THE RETURN STATEMENT BY RETURNING THE C(n, k) ITEM REQUESTED
-    return 
+    return pascalsTriangle[n][k]
 
 # PART D - EXTRA CREDIT
 def DP_Extra_Credit(n, k):
@@ -62,5 +68,5 @@ def DP_Extra_Credit(n, k):
 
 print('C(28,14) ',C(28,14))
 print('DC(28,14)',DC(28,14))
-print('DP(28,14)',DP(28,14))
+print('DP(28,14)',DP(52,5))
 # print('DP_Extra_Credit(28,14)', DP_Extra_Credit(28,14))
